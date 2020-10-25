@@ -57,6 +57,7 @@ public class GuiCookieFilter implements Filter {
 
             response.addCookie(cookie);
         } catch (Throwable ex) {
+            //ignore
         }
         filterChain.doFilter(request, response);
     }
@@ -66,7 +67,7 @@ public class GuiCookieFilter implements Filter {
     }
 
     @Nonnull
-    public static Cookie createCookie(@Nonnull HttpServletRequest request, @Nonnull String name, @Nullable String value, @Nullable Integer maxAge) {
+    private Cookie createCookie(@Nonnull HttpServletRequest request, @Nonnull String name, @Nullable String value, @Nullable Integer maxAge) {
         Cookie cookie = new Cookie(name, value);
         cookie.setDomain(request.getServerName());
         cookie.setPath("/");

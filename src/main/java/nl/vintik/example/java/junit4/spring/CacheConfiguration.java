@@ -25,17 +25,13 @@ public class CacheConfiguration {
     }
 
     static long size(String override, long defaultValue) {
-        try {
-            List<String> strings = Splitter.on(CharMatcher.anyOf("|;")).omitEmptyStrings().splitToList(override);
+        List<String> strings = Splitter.on(CharMatcher.anyOf("|;")).omitEmptyStrings().splitToList(override);
 
-            for (int i = 0; i < strings.size(); i++) {
-                if (strings.get(i).equals("maxElementsInMemory")) {
-                    return Long.parseLong(strings.get(i + 1));
-                }
+        for (int i = 0; i < strings.size(); i++) {
+            if (strings.get(i).equals("maxElementsInMemory")) {
+                return Long.parseLong(strings.get(i + 1));
             }
-            return defaultValue;
-        } catch (Exception e) {
-            throw new IllegalArgumentException("Malformed override: " + override, e);
         }
+        return defaultValue;
     }
 }

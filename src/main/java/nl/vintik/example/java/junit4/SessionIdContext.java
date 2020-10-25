@@ -4,6 +4,6 @@ import java.util.Optional;
 
 public interface SessionIdContext {
 
-    public Optional<String> getSessionId();
+    Optional<String> getSessionId();
 
 }

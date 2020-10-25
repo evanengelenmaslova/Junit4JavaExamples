@@ -10,12 +10,10 @@ import org.springframework.mock.web.MockFilterChain;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import javax.servlet.FilterChain;
-import javax.servlet.ServletException;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -65,7 +63,7 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertEquals("http://request?a=b&c=d", MDC.get(LogRequestFilter.REQUEST_URL));
                     }
                 });
@@ -86,7 +84,7 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertEquals("http://referer", MDC.get(LogRequestFilter.REQUEST_REFERER_URL));
                     }
                 });
@@ -107,7 +105,7 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertNull(MDC.get(LogRequestFilter.REQUEST_REFERER_URL));
                     }
                 });
@@ -127,8 +125,8 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-                        assertEquals("sessionId", MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+                        assertEquals("sessionId", MDC.get(LogRequestFilter.JSESSION_ID));
                     }
                 });
 
@@ -136,7 +134,7 @@ public class LogRequestFilterTest {
 
         mockFilterChain.reset();
         filter.doFilter(request, response, mockFilterChain);
-        assertNull(MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+        assertNull(MDC.get(LogRequestFilter.JSESSION_ID));
     }
 
     @Test
@@ -147,8 +145,8 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-                        assertNull(MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
+                        assertNull(MDC.get(LogRequestFilter.JSESSION_ID));
                     }
                 });
 
@@ -156,7 +154,7 @@ public class LogRequestFilterTest {
 
         mockFilterChain.reset();
         filter.doFilter(request, response, mockFilterChain);
-        assertNull(MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+        assertNull(MDC.get(LogRequestFilter.JSESSION_ID));
     }
 
     @Test
@@ -170,7 +168,7 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertEquals(sessionId, MDC.get(LogRequestFilter.SESSION_ID));
                     }
                 });
@@ -190,7 +188,7 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertNull(MDC.get(LogRequestFilter.SESSION_ID));
                     }
                 });
@@ -217,10 +215,10 @@ public class LogRequestFilterTest {
                 filter,
                 new OncePerRequestFilter() {
                     @Override
-                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
+                    protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) {
                         assertEquals("http://request", MDC.get(LogRequestFilter.REQUEST_URL));
                         assertEquals("http://referer", MDC.get(LogRequestFilter.REQUEST_REFERER_URL));
-                        assertEquals("sessionId", MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+                        assertEquals("sessionId", MDC.get(LogRequestFilter.JSESSION_ID));
                         assertEquals(sessionId, MDC.get(LogRequestFilter.SESSION_ID));
 
                         throw new IllegalStateException("some exception");
@@ -238,7 +236,7 @@ public class LogRequestFilterTest {
 
         assertNull(MDC.get(LogRequestFilter.REQUEST_URL));
         assertNull(MDC.get(LogRequestFilter.REQUEST_REFERER_URL));
-        assertNull(MDC.get(LogRequestFilter.JSESSIONID_MDC_KEY));
+        assertNull(MDC.get(LogRequestFilter.JSESSION_ID));
         assertNull(MDC.get(LogRequestFilter.SESSION_ID));
     }
 }

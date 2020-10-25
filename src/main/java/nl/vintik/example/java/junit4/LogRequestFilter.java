@@ -24,7 +24,7 @@ public class LogRequestFilter implements Filter {
     static final String REQUEST_REFERER_URL = "REQUEST_REFERER_URL";
     static final String JSESSIONID_COOKIE = "JSESSIONID";
 
-    static final String JSESSIONID_MDC_KEY = "jsession_id";
+    static final String JSESSION_ID = "jsession_id";
 
     static final String SESSION_ID = "sessionId";
 
@@ -51,13 +51,14 @@ public class LogRequestFilter implements Filter {
                 final Map<String, Optional<String>> context = ImmutableMap.<String, Optional<String>>builder()
                         .put(REQUEST_URL, getFullRequestUrl(httpRequest))
                         .put(REQUEST_REFERER_URL, getReferer(httpRequest))
-                        .put(JSESSIONID_MDC_KEY, getJSessionId(httpRequest))
+                        .put(JSESSION_ID, getJSessionId(httpRequest))
                         .put(SESSION_ID, sessionIdContext.getSessionId())
                         .build();
 
                 setMdc(context);
             }
         } catch (Throwable ex) {
+            //ignore
         }
 
         try {
@@ -80,7 +81,7 @@ public class LogRequestFilter implements Filter {
     }
 
     private static void unsetMdc() {
-        ImmutableList.of(REQUEST_URL, REQUEST_REFERER_URL, JSESSIONID_MDC_KEY, SESSION_ID)
+        ImmutableList.of(REQUEST_URL, REQUEST_REFERER_URL, JSESSION_ID, SESSION_ID)
                 .forEach(MDC::remove);
     }
 
