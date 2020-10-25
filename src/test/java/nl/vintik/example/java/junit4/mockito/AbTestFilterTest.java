@@ -1,5 +1,6 @@
-package nl.vintik.example.java.junit4;
+package nl.vintik.example.java.junit4.mockito;
 
+import nl.vintik.example.java.junit4.DeviceType;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -16,7 +17,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.Map;
 
-import static nl.vintik.example.java.junit4.AbTestFilter.*;
+import static nl.vintik.example.java.junit4.mockito.AbTestFilter.*;
 import static org.junit.Assert.assertArrayEquals;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.*;

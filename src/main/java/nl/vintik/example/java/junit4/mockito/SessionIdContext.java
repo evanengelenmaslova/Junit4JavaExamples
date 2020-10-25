@@ -1,4 +1,4 @@
-package nl.vintik.example.java.junit4;
+package nl.vintik.example.java.junit4.mockito;
 
 import java.util.Optional;
 

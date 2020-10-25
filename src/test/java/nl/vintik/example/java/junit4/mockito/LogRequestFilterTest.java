@@ -1,4 +1,4 @@
-package nl.vintik.example.java.junit4;
+package nl.vintik.example.java.junit4.mockito;
 
 import com.google.common.net.HttpHeaders;
 import org.junit.Before;
@@ -17,7 +17,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.util.Optional;
 import java.util.UUID;
 
-import static nl.vintik.example.java.junit4.LogRequestFilter.MDC;
+import static nl.vintik.example.java.junit4.mockito.LogRequestFilter.MDC;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.*;
 import static org.mockito.Matchers.eq;

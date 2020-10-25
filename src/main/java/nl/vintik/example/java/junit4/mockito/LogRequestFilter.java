@@ -1,4 +1,4 @@
-package nl.vintik.example.java.junit4;
+package nl.vintik.example.java.junit4.mockito;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;

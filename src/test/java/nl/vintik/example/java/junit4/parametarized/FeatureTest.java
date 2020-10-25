@@ -1,6 +1,6 @@
 package nl.vintik.example.java.junit4.parametarized;
 
-import nl.vintik.example.java.junit4.Toggle;
+import nl.vintik.example.java.junit4.mockito.Toggle;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.Parameterized;
